@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: redis
+# Recipe:: redis_slave
 #
 # Copyright 2014, Sonian Inc.
 #
@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-node.override.redisio.servers = [{:port => node.sensu.redis.port}]
+node.override.redisio.servers = [{:port => node.sensu.redis.port, 
+                                  :slaveof => node.redis.master}]
 
 include_recipe "redisio::default"
 include_recipe "redisio::install"

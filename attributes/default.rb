@@ -37,6 +37,7 @@ default.sensu.rabbitmq.password = "password"
 # redis
 default.sensu.redis.host = "localhost"
 default.sensu.redis.port = 6379
+default.redis.master =  { 'address' => '127.0.0.1', 'port' => '6379' }
 
 # api
 default.sensu.api.host = "localhost"

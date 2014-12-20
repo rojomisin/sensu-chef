@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: redis
+# Recipe:: sentinel
 #
 # Copyright 2014, Sonian Inc.
 #
@@ -17,9 +17,11 @@
 # limitations under the License.
 #
 
-node.override.redisio.servers = [{:port => node.sensu.redis.port}]
+node.override.redisio.sentinels = [{'sentinel_port' => node.sentinels.port, 
+                                    'name' => node.sentinels.name, 
+                                    'master_ip' => node.redis.master.address, 
+                                    'master_port' => node.redis.master.port}]
 
 include_recipe "redisio::default"
-include_recipe "redisio::install"
-include_recipe "redisio::enable"
-include_recipe "redisio::redis_healthcheck"
+include_recipe "redisio::sentinel"
+include_recipe "redisio::sentinel_enable"
