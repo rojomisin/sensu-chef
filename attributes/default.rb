@@ -32,7 +32,16 @@ default.sensu.rabbitmq.host = "localhost"
 default.sensu.rabbitmq.port = 5671
 default.sensu.rabbitmq.vhost = "/sensu"
 default.sensu.rabbitmq.user = "sensu"
-default.sensu.rabbitmq.password = "password"
+#default.sensu.rabbitmq.password = "password"
+
+databag_name = node['databag']['databag_name']
+if node['databag'].has_key?('databag_secret')
+  databag_secret = node['databag']['databag_secret']
+elsif node['databag'].has_key?('secret_url')
+  databag_secret = get_secret_from_url(node['databag']['secret_url'])
+end
+passwords = Chef::EncryptedDataBagItem.load(databag_name, 'passwords', secret=databag_secret)
+default.sensu.rabbitmq.password = passwords['rabbitmq']
 
 # redis
 default.sensu.redis.host = "localhost"
