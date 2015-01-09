@@ -26,6 +26,7 @@ if node.sensu.use_ssl
   ssl_directory = "/etc/rabbitmq/ssl"
 
   directory ssl_directory do
+    mode 0755
     recursive true
   end
 
