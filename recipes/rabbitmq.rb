@@ -30,8 +30,15 @@ if node.sensu.use_ssl
     recursive true
   end
 
-  ssl = Sensu::Helpers.data_bag_item("ssl")
-
+  #ssl = Sensu::Helpers.data_bag_item("ssl")
+  databag_name = node['databag']['databag_name']
+  if node['databag'].has_key?('databag_secret')
+    databag_secret = node['databag']['databag_secret']
+  elsif node['databag'].has_key?('secret_url')
+    databag_secret = get_secret_from_url(node['databag']['secret_url'])
+  end
+  ssl = Chef::EncryptedDataBagItem.load(databag_name, 'ssl', secret=databag_secret)
+    
   %w[
     cacert
     cert
