@@ -42,12 +42,12 @@ windows_feature "NetFx3" do
   source node.sensu.windows.dism_source
 end
 
-windows_package "Sensu" do
-  source "#{node.sensu.msi_repo_url}/sensu-#{node.sensu.version}.msi"
-  options node.sensu.windows.package_options
-  version node.sensu.version.gsub("-", ".")
-  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
-end
+#windows_package "Sensu" do
+#  source "#{node.sensu.msi_repo_url}/sensu-#{node.sensu.version}.msi"
+#  options node.sensu.windows.package_options
+#  version node.sensu.version.gsub("-", ".")
+#  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+#end
 
 template 'C:\opt\sensu\bin\sensu-client.xml' do
   source "sensu.xml.erb"
