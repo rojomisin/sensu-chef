@@ -55,6 +55,14 @@ template 'C:\opt\sensu\bin\sensu-client.xml' do
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
 
+## Temp fix soulution for error:
+## C:/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sensu-em-2.4.0/lib/em/connection.rb:419:
+##     in `set_tls_parms': wrong number of arguments (6 for 4) (ArgumentError)
+remote_file "C:\opt\sensu\embedded\lib\ruby\gems\2.0.0\gems\sensu-em-2.4.0-x86-mingw32\lib\em\connection.rb" do
+  source "connection.rb"
+  action :create
+end
+
 execute "sensu-client.exe install" do
   cwd 'C:\opt\sensu\bin'
   not_if {

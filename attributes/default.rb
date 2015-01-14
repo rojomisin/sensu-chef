@@ -11,8 +11,8 @@ else
   default.sensu.group = "sensu"
   default.sensu.directory = "/etc/sensu"
   default.sensu.log_directory = "/var/log/sensu"
-  default.sensu.log_directory_mode = "0750"
 end
+default.sensu.log_directory_mode = "0750"
 
 # installation
 default.sensu.version = "0.16.0-1"

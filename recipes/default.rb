@@ -27,7 +27,6 @@ end
 
 if platform_family?("windows")
   include_recipe "sensu::_windows"
-  node.override.sensu.log_directory_mode = '0755'
 else
   include_recipe "sensu::_linux"
 end
