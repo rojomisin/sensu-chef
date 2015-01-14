@@ -49,6 +49,7 @@ windows_package "Sensu" do
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
 
+
 template 'C:\opt\sensu\bin\sensu-client.xml' do
   source "sensu.xml.erb"
   variables :service => "sensu-client", :name => "Sensu Client"
