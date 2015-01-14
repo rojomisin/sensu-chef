@@ -57,9 +57,8 @@ template 'C:\opt\sensu\bin\sensu-client.xml' do
 end
 
 ## Temp fix soulution for error
-remote_file "connect.rb" do
-  source "file://connection.rb"
-  path 'C:\opt\sensu\embedded\lib\ruby\gems\2.0.0\gems\sensu-em-2.4.0-x86-mingw32\lib\em\connection.rb'
+template "C:\opt\sensu\embedded\lib\ruby\gems\2.0.0\gems\sensu-em-2.4.0-x86-mingw32\lib\em\connection.rb" do
+  source "connection.rb.erb"
   action :create
 end
 
