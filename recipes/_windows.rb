@@ -73,7 +73,7 @@ end
     source "#{node.sensu.msi_repo_url}/sensu-plugin/#{gem}"
     action :create
   end
-  gem_version = gem.split('-')[1].gsub('.gem', '')
+  gem_version = gem.split('-')[-1].gsub('.gem', '')
   gem_package "#{gem}" do
     gem_binary('c:\opt\sensu\embedded\bin\gem')
     source "#{local_dir}\\#{gem}"
