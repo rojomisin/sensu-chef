@@ -77,7 +77,7 @@ end
 
 gem_package 'sensu-plugin' do
   gem_binary('c:\opt\sensu\embedded\bin\gem')
-  source "#{local_dir}\sensu-plugin-1.1.0.gem"
+  source "#{local_dir}\\sensu-plugin-1.1.0.gem"
   action :install
 end
 
