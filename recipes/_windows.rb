@@ -76,7 +76,7 @@ end
   gem_package "#{gem}" do
     gem_binary('c:\opt\sensu\embedded\bin\gem')
     source "#{local_dir}\\#{gem}"
-    options(:ignore_dependencies => true)
+    ignore_dependencies true
     action :install
   end
 end
