@@ -69,7 +69,7 @@ directory "#{local_dir}" do
 end
 
 ['json-1.8.2.gem', 'mixlib-cli-1.5.0.gem', 'sensu-plugin-1.1.0.gem'].each do |gem|
-  remote_file "#{local_dir}\#{gem}" do
+  remote_file "#{local_dir}\\#{gem}" do
     source "#{node.sensu.msi_repo_url}/sensu-plugin/#{gem}"
     action :create
   end
