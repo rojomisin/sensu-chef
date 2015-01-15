@@ -63,7 +63,7 @@ template 'C:\opt\sensu\embedded\lib\ruby\gems\2.0.0\gems\sensu-em-2.4.0-x86-ming
 end
 
 ## Install sensu-plugin which was missed from msi package
-local_dir = 'c:\var\chef\cache\sensu-plugin'
+local_dir = 'c:\chef\cache\sensu-plugin'
 directory "#{local_dir}" do
   action :create
 end
