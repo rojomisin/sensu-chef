@@ -62,6 +62,25 @@ template 'C:\opt\sensu\embedded\lib\ruby\gems\2.0.0\gems\sensu-em-2.4.0-x86-ming
   action :create
 end
 
+## Install sensu-plugin which was missed from msi package
+local_dir = 'c:\var\chef\cache\sensu-plugin'
+directory "#{local_dir}" do
+  action :create
+end
+
+['json-1.8.2.gem', 'mixlib-cli-1.5.0.gem', 'sensu-plugin-1.1.0.gem'].each do |gem|
+  remote_file "#{local_dir}\#{gem}" do
+    source "#{node.sensu.msi_repo_url}/sensu-plugin/#{gem}"
+    action :create
+  end
+end
+
+gem_package 'sensu-plugin' do
+  gem_binary('c:\opt\sensu\embedded\bin\gem')
+  source "#{local_dir}\sensu-plugin-1.1.0.gem"
+  action :create
+end
+
 execute "sensu-client.exe install" do
   cwd 'C:\opt\sensu\bin'
   not_if {
