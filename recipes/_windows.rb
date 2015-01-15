@@ -73,12 +73,12 @@ end
     source "#{node.sensu.msi_repo_url}/sensu-plugin/#{gem}"
     action :create
   end
-end
-
-gem_package 'sensu-plugin' do
-  gem_binary('c:\opt\sensu\embedded\bin\gem')
-  source "#{local_dir}\\sensu-plugin-1.1.0.gem"
-  action :install
+  gem_package "#{gem}" do
+    gem_binary('c:\opt\sensu\embedded\bin\gem')
+    source "#{local_dir}\\#{gem}"
+    options(:ignore_dependencies => true)
+    action :install
+  end
 end
 
 execute "sensu-client.exe install" do
