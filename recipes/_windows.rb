@@ -62,13 +62,35 @@ template 'C:\opt\sensu\embedded\lib\ruby\gems\2.0.0\gems\sensu-em-2.4.0-x86-ming
   action :create
 end
 
-## Install sensu-plugin which was missed from msi package
+## upgrade to sensu-1.6.0 with ruby gems package
+local_dir = 'c:\chef\cache\sensu-gems'
+directory "#{local_dir}" do
+  action :create
+end
+
+%w[amqp-1.5.0.gem ffi-1.9.6-x86-mingw32.gem rack-1.6.0.gem eventmachine-1.0.4.gem 
+sensu-transport-2.4.0.gem sensu-0.16.0.gem].each do |gem|
+  remote_file "#{local_dir}\\#{gem}" do
+    source "#{node.sensu.msi_repo_url}/sensu-gems/#{gem}"
+    action :create
+  end
+  gem_version = gem.split('-')[-1].gsub('.gem', '')
+  gem_package "#{gem}" do
+    gem_binary('c:\opt\sensu\embedded\bin\gem')
+    source "#{local_dir}\\#{gem}"
+    version "#{gem_version}"
+    action :install
+  end
+end
+
+
+## Install sensu-plugin
 local_dir = 'c:\chef\cache\sensu-plugin'
 directory "#{local_dir}" do
   action :create
 end
 
-['json-1.8.2.gem', 'mixlib-cli-1.5.0.gem', 'sensu-plugin-1.1.0.gem'].each do |gem|
+%w[json-1.8.2.gem  mixlib-cli-1.5.0.gem  sensu-plugin-1.1.0.gem].each do |gem|
   remote_file "#{local_dir}\\#{gem}" do
     source "#{node.sensu.msi_repo_url}/sensu-plugin/#{gem}"
     action :create
