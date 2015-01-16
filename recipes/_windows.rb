@@ -68,7 +68,7 @@ directory "#{local_dir}" do
   action :create
 end
 
-%w[amqp-1.5.0.gem ffi-1.9.6-x86-mingw32.gem rack-1.6.0.gem eventmachine-1.0.4.gem 
+%w[amqp-1.5.0.gem ffi-1.9.6.gem rack-1.6.0.gem eventmachine-1.0.4.gem 
 sensu-transport-2.4.0.gem sensu-0.16.0.gem].each do |gem|
   remote_file "#{local_dir}\\#{gem}" do
     source "#{node.sensu.msi_repo_url}/sensu-gems/#{gem}"
