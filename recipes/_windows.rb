@@ -62,10 +62,21 @@ template 'C:\opt\sensu\embedded\lib\ruby\gems\2.0.0\gems\sensu-em-2.4.0-x86-ming
   action :create
 end
 
-## upgrade to sensu-1.6.0 with ruby gems package
+## upgrade to sensu-0.16.0 with ruby gems package
 local_dir = 'c:\chef\cache\sensu-gems'
 directory "#{local_dir}" do
   action :create
+end
+
+## When installing ffi-1.9.6.gem, one .so file was in using by sensu-client service,
+## which causes the file is not accessiable even readonly. So we stop the service before 
+## installing the package.
+sensu_service "sensu-client" do
+  init_style node.sensu.init_style
+  action :stop
+  only_if {
+    ::Win32::Service.exists?("sensu-client")
+  }
 end
 
 %w[amqp-1.5.0.gem ffi-1.9.6.gem rack-1.6.0.gem eventmachine-1.0.4.gem 
